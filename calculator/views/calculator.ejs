@@ -8,6 +8,9 @@
     </head>
     <body>
         <script>
+            // 共通関数
+            var eqflg = 0;
+
             // 入力制御
             function inputCheck(){
                 // TODO キーボード入力チェック
@@ -15,12 +18,20 @@
                 var inputValue = document.getElementById( "inputForm" ).value;
                 if(inputValue.value.match(/[^0-9]+/)){
                     append(inputValue);
+                }else{
+                    // switch
+                    // TODO +
+                    // TODO -
+                    // TODO *
+                    // TODO /
                 }
             }
             function append( _v ) {
                 // ボタン入力
-                if (integer.value.match("0")){
-                    // 初期状態の場合、入力した値で更新
+                var ini = document.querySelector( 'input' ).value.slice( 0, 1 );
+                if (ini.match("0") || eqflg == 1){
+                    // 初期状態or「＝」押下後の場合、入力した値で更新
+                    eqflg = 0;
                     update(_v);
                 }else if(integer.value.match("ERROR")){
                     // ERRORからの再入力の場合、最初に入力した値で更新
@@ -49,6 +60,7 @@
             // 演算処理
             function calc(){
                 // 「＝」ボタンが押されたので計算する
+                eqflg = 1;
                 const v = document.querySelector( 'input' ).value;
                 try {
                     const f = new Function( 'return ' + v )
@@ -57,6 +69,11 @@
                     // 計算に失敗した場合、ERRORを表示
                     update("ERROR");
                 }
+            }
+            function percent() {
+                const v = document.querySelector('input').value;
+                const p = v/100;
+                update(p);
             }
         </script>
         <div class="container">
@@ -86,7 +103,7 @@
                         </button>
                     </td>
                     <td>
-                        <button class="integer-buttons" onclick="append( '/100' )">
+                        <button class="integer-buttons" onclick="percent()">
                             <p id="button-text">%</p>
                         </button>
                     </td>
