@@ -1,0 +1,22 @@
+#integer {
+    text-align: right;
+    width: 40em;
+    height: 5em;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+}
+
+button {
+    width: 10em;
+    height: 10em;
+}
+
+#button-text{
+    font-size: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+}
