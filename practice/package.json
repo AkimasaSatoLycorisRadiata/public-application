@@ -1,0 +1,16 @@
+{
+  "name": "practice",
+  "version": "1.0.0",
+  "description": "<h1>Private版(非公開版Repository)</h1>\r <p>・主に公開前のソースの保管、公開に向けた検証等に使用</p>\r <p>・問題なければ、公開用リポジトリへ再プッシュ</p>",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2"
+  }
+}

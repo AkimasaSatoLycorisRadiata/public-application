@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Calculators</title>
+        <link rel="stylesheet" href="..\public\third_party\bootstrap\css\calcu.css">
+    </head>
+    <body>
+        <script>
+            // 共通関数
+            var eqflg = 0;
+
+            // 入力制御
+            function inputCheck(){
+                // TODO キーボード入力チェック
+                // 入力値取得
+                var inputValue = document.getElementById( "inputForm" ).value;
+                if(inputValue.value.match(/[^0-9]+/)){
+                    append(inputValue);
+                }else{
+                    // switch
+                    // TODO +
+                    // TODO -
+                    // TODO *
+                    // TODO /
+                }
+            }
+            function append( _v ) {
+                // ボタン入力
+                var ini = document.querySelector( 'input' ).value.slice( 0, 1 );
+                if (ini.match("0") || eqflg == 1){
+                    // 初期状態or「＝」押下後の場合、入力した値で更新
+                    eqflg = 0;
+                    update(_v);
+                }else if(integer.value.match("ERROR")){
+                    // ERRORからの再入力の場合、最初に入力した値で更新
+                    update(_v);
+                } 
+                else{
+                    // 数字ボタンが押されたので数字を後ろに追加する
+                    document.querySelector( 'input' ).value += _v;
+                }
+            }
+            function back(){
+                // 入力値を一桁ずつ消す
+                const inputValue = document.querySelector( 'input' ).value;
+                let inputValueLength = inputValue.length;
+                let editInputValue = inputValue.slice(0, inputValueLength -1);
+                if(editInputValue.length==0){
+                    update(0);
+                }else{
+                    update(editInputValue);
+                }
+            }
+            function update( _v ){
+                // 入力された数値を更新
+                document.querySelector( 'input' ).value = _v;
+            }
+            // 演算処理
+            function calc(){
+                // 「＝」ボタンが押されたので計算する
+                eqflg = 1;
+                const v = document.querySelector( 'input' ).value;
+                try {
+                    const f = new Function( 'return ' + v )
+                    update( f().toString() )
+                } catch( _error ) {
+                    // 計算に失敗した場合、ERRORを表示
+                    update("ERROR");
+                }
+            }
+            function percent() {
+                const v = document.querySelector('input').value;
+                const p = v/100;
+                update(p);
+            }
+        </script>
+        <div class="container">
+            <p>電卓-基本的計算編-</p>
+            <table border="1">
+                <tr>
+                    <td colspan="4">
+                        <input
+                            type="text"
+                            id="integer"
+                            required
+                            minlength="0"
+                            maxlength="16"
+                            value="0"
+                        >
+                    </td>
+                </tr>
+                <tr class="buttons">
+                    <td>
+                        <button class="integer-buttons" onclick="update( '0' ) ">
+                            <p id="button-text">AC</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '\(\)' )">
+                            <p id="button-text">()</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="percent()">
+                            <p id="button-text">%</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '+' )">
+                            <p id="button-text">+</p>
+                        </button>
+                    </td>
+                </tr>
+                <tr class="buttons">
+                    <td>
+                        <button class="integer-buttons" onclick="append( '7' )">
+                            <p id="button-text">7</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '8' )">
+                            <p id="button-text">8</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '9' )">
+                            <p id="button-text">9</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '-' )">
+                            <p id="button-text">-</p>
+                        </button>
+                    </td>
+                </tr>
+                <tr class="buttons">
+                    <td>
+                        <button class="integer-buttons" onclick="append( '4' )">
+                            <p id="button-text">4</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '5' )">
+                            <p id="button-text">5</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '6' )">
+                            <p id="button-text">6</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '*' )">
+                            <p id="button-text">×</p>
+                        </button>
+                    </td>
+                </tr>
+                <tr class="buttons">
+                    <td>
+                        <button class="integer-buttons" onclick="append( '1' )">
+                            <p id="button-text">1</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '2' )">
+                            <p id="button-text">2</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '3' )">
+                            <p id="button-text">3</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '/' )">
+                            <p id="button-text">÷</p>
+                        </button>
+                    </td>
+                </tr>
+                <tr class="buttons">
+                    <td>
+                        <button class="integer-buttons" onclick="append( '0' )">
+                            <p id="button-text">0</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="append( '.' )">
+                            <p id="button-text">.</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="back()">
+                            <p id="button-text">←</p>
+                        </button>
+                    </td>
+                    <td>
+                        <button class="integer-buttons" onclick="calc()">
+                            <p id="button-text">=</p>
+                        </button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </body>
+</html>
