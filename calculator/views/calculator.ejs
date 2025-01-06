@@ -8,22 +8,36 @@
     </head>
     <body>
         <script>
+            document.addEventListener('DOMContentLoaded',pageLoad)
             // 共通関数
             var eqflg = 0;
-
+            // 初期設定
+            function pageLoad(){
+                var input = document.getElementById( "integer" );
+                input.addEventListener('keydown', keydownCheck);         
+            }
             // 入力制御
-            function inputCheck(){
-                // TODO キーボード入力チェック
-                // 入力値取得
-                var inputValue = document.getElementById( "inputForm" ).value;
-                if(inputValue.value.match(/[^0-9]+/)){
-                    append(inputValue);
+            function textCheck($this){
+                let inputValue = $this.value;
+                if(inputValue.includes('%')){
+                    back();
                 }else{
-                    // switch
-                    // TODO +
-                    // TODO -
-                    // TODO *
-                    // TODO /
+                    $this.value= inputValue;
+                }
+            }
+            // Key制御
+            function keydownCheck(event){
+                var input = document.getElementById( "integer" );
+                let inputValue = input.value;
+                let x = event.key.value;
+                // キーボード入力チェック
+                // 入力値取得
+                if(event.key === 'Enter'){
+                    // Equal
+                    calc();
+                }else if(event.key.match(/%/)){
+                    // percent
+                    percent();
                 }
             }
             function append( _v ) {
@@ -84,6 +98,7 @@
                         <input
                             type="text"
                             id="integer"
+                            onInput="textCheck(this)"
                             required
                             minlength="0"
                             maxlength="16"
